@@ -1,0 +1,8 @@
+<resources>
+
+        <string name="app_name">Shopping App</string>
+        <string name="open">Open Drawer</string>
+        <string name="close">Close Drawer</string>
+
+
+</resources>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0D1B2A">
+<!-- Shopping Cart Illustration -->
+<ImageView
+    android:id="@+id/ivSplashIllustration"
+    android:layout_width="250dp"
+    android:layout_height="250dp"
+    android:src="@drawable/ic_shopping_cart"
+    android:layout_centerInParent="true"
+    android:contentDescription="Shopping Cart Illustration"/>
+
+    <!-- Title -->
+<TextView
+android:id="@+id/tvSplashTitle"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="Smart Shopping"
+android:textColor="#FFFFFF"
+android:textSize="28sp"
+android:textStyle="bold"
+android:layout_below="@id/ivSplashIllustration"
+android:layout_centerHorizontal="true"
+android:layout_marginTop="32dp"/>
+
+    <!-- Description -->
+<TextView
+android:id="@+id/tvSplashDesc"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="Manage your shopping lists with ease"
+android:textColor="#AAAAAA"
+android:textSize="16sp"
+android:layout_below="@id/tvSplashTitle"
+android:layout_centerHorizontal="true"
+android:layout_marginTop="16dp"/>
+
+    <!-- Next Button -->
+<Button
+android:id="@+id/btnNext"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="Next"
+android:backgroundTint="#4A90E2"
+android:textColor="#FFFFFF"
+android:layout_alignParentBottom="true"
+android:layout_centerHorizontal="true"
+android:layout_marginBottom="32dp"/>
+</RelativeLayout>

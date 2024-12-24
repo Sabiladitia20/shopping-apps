@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp"
+    app:cardBackgroundColor="#2C2C2C">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center_vertical">
+
+        <!-- Checkbox for selection -->
+        <CheckBox
+            android:id="@+id/cbItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/checkbox_tint"
+            android:layout_marginEnd="16dp" />
+
+        <!-- Item Details Text -->
+        <TextView
+            android:id="@+id/tvItemDetails"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Item - $0.00"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:layout_marginEnd="16dp" />
+
+        <!-- Update Item Icon -->
+        <ImageButton
+            android:id="@+id/btnUpdateItem"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?selectableItemBackground"
+            android:src="@drawable/ic_update"
+            android:contentDescription="Update Item"
+            android:layout_marginEnd="8dp"
+            app:tint="#3A9A5D" />
+
+        <!-- Delete Item Icon -->
+        <ImageButton
+            android:id="@+id/btnDeleteItem"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?selectableItemBackground"
+            android:src="@drawable/ic_delete"
+            android:contentDescription="Delete Item"
+            app:tint="#FF4C4C" />
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

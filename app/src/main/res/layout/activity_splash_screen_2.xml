@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1C1C1C">
+    <!-- List Management Illustration -->
+    <ImageView
+        android:id="@+id/ivListManagement"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:src="@drawable/ic_list_management"
+        android:layout_centerInParent="true"
+        android:contentDescription="List Management Illustration"/>
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/tvFeatureTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Easy List Creation"
+        android:textColor="#FFFFFF"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:layout_below="@id/ivListManagement"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"/>
+
+    <!-- Description -->
+    <TextView
+        android:id="@+id/tvFeatureDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create, update, and manage your lists quickly"
+        android:textColor="#AAAAAA"
+        android:textSize="16sp"
+        android:layout_below="@id/tvFeatureTitle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Get Started Button -->
+    <Button
+        android:id="@+id/btnGetStarted"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Get Started"
+        android:backgroundTint="#3A9A5D"
+        android:textColor="#FFFFFF"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="32dp"/>
+</RelativeLayout>

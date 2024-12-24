@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="primaryTextColor">#333333</color>
+    <color name="secondaryTextColor">#00796B</color>
+    <color name="backgroundColor">#FAFAFA</color>
+    <color name="buttonColor">#009688</color>
+    <color name="hintColor">#BDBDBD</color>
+    <color name="dividerColor">#E0E0E0</color>
+    <color name="checkbox_tint">#00BCD4</color> <!-- Example: Cyan tint -->
+    <color name="dark_grey">#212121</color>
+    <color name="medium_grey">#757575</color>
+    <color name="light_grey">#B0BEC5</color>
+
+
+</resources>
