@@ -47,7 +47,7 @@ pipeline {
     }
     post {
         always {
-            node {
+            node('master') {  // Tentukan label node yang digunakan di sini
                 script {
                     echo 'Logging out from Docker Hub...'
                     bat 'docker logout'
