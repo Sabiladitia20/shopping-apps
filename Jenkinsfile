@@ -2,13 +2,29 @@ pipeline {
     agent any
 
     environment {
-        // Android SDK location - adjust this path according to your Jenkins server setup
+        // Java configuration
+        JAVA_HOME = 'C:\Program Files\Common Files\Oracle\Java\javapath\java.exe'  // Update this path to your JDK installation
+        // Android SDK configuration
         ANDROID_HOME = 'C:\\Users\\Sabil Aditia\\AppData\\Local\\Android\\Sdk'
-        // Adding Android platform tools to PATH
-        PATH = "${ANDROID_HOME}\\platform-tools;${ANDROID_HOME}\\tools;${ANDROID_HOME}\\tools\\bin;${env.PATH}"
+        // Update PATH to include Java and Android tools
+        PATH = "${JAVA_HOME}\\bin;${ANDROID_HOME}\\platform-tools;${ANDROID_HOME}\\tools;${ANDROID_HOME}\\tools\\bin;${env.PATH}"
     }
 
     stages {
+        stage('Environment Check') {
+            steps {
+                // Verify Java installation
+                bat 'java -version'
+                bat 'echo %JAVA_HOME%'
+                
+                // Verify Android SDK
+                bat 'echo %ANDROID_HOME%'
+                
+                // Verify Gradle installation
+                bat '.\\gradlew --version'
+            }
+        }
+
         stage('Checkout') {
             steps {
                 // Checkout code from GitHub repository
@@ -18,20 +34,20 @@ pipeline {
 
         stage('Clean Project') {
             steps {
-                // Clean the project
-                bat './gradlew clean'
+                // Clean the project using gradlew
+                bat 'gradlew clean'
             }
         }
 
         stage('Run Tests') {
             steps {
                 // Run all tests
-                bat './gradlew test'
+                bat 'gradlew test'
             }
             post {
                 always {
                     // Publish test results
-                    junit '**/build/test-results/test/*.xml'
+                    junit allowEmptyResults: true, testResults: '**/build/test-results/test/*.xml'
                 }
             }
         }
@@ -39,12 +55,12 @@ pipeline {
         stage('Code Analysis') {
             steps {
                 // Run lint check
-                bat './gradlew lint'
+                bat 'gradlew lint'
             }
             post {
                 always {
                     // Archive lint results
-                    archiveArtifacts '**/build/reports/lint-results-debug.html'
+                    archiveArtifacts allowEmptyArchive: true, artifacts: '**/build/reports/lint-results-debug.html'
                 }
             }
         }
@@ -52,7 +68,7 @@ pipeline {
         stage('Build Debug APK') {
             steps {
                 // Build debug APK
-                bat './gradlew assembleDebug'
+                bat 'gradlew assembleDebug'
             }
             post {
                 success {
@@ -65,7 +81,7 @@ pipeline {
         stage('Build Release APK') {
             steps {
                 // Build release APK
-                bat './gradlew assembleRelease'
+                bat 'gradlew assembleRelease'
             }
             post {
                 success {
