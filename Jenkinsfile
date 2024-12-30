@@ -2,73 +2,90 @@ pipeline {
     agent any
 
     environment {
-        ANDROID_HOME = "$HOME/Android/Sdk"
-        GRADLE_HOME = "$HOME/.gradle"
-        PATH = "/usr/local/bin:$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools:$GRADLE_HOME/bin:$PATH"
+        // Android SDK location - adjust this path according to your Jenkins server setup
+        ANDROID_HOME = 'C:\\Users\\Sabil Aditia\\AppData\\Local\\Android\\Sdk'
+        // Adding Android platform tools to PATH
+        PATH = "${ANDROID_HOME}\\platform-tools;${ANDROID_HOME}\\tools;${ANDROID_HOME}\\tools\\bin;${env.PATH}"
     }
 
     stages {
         stage('Checkout') {
             steps {
-                script {
-                    echo 'Checking out project...'
-                    git url: 'https://github.com/Sabiladitia20/shopping-apps.git', branch: 'main'
+                // Checkout code from GitHub repository
+                git branch: 'main', url: 'https://github.com/Sabiladitia20/shopping-apps.git'
+            }
+        }
+
+        stage('Clean Project') {
+            steps {
+                // Clean the project
+                bat './gradlew clean'
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                // Run all tests
+                bat './gradlew test'
+            }
+            post {
+                always {
+                    // Publish test results
+                    junit '**/build/test-results/test/*.xml'
                 }
             }
         }
 
-        stage('Setup') {
+        stage('Code Analysis') {
             steps {
-                script {
-                    echo 'Setting up Android SDK and dependencies...'
-                    sh './gradlew dependencies'
+                // Run lint check
+                bat './gradlew lint'
+            }
+            post {
+                always {
+                    // Archive lint results
+                    archiveArtifacts '**/build/reports/lint-results-debug.html'
                 }
             }
         }
 
-        stage('Build') {
+        stage('Build Debug APK') {
             steps {
-                script {
-                    echo 'Building APK...'
-                    sh './gradlew assembleDebug'
+                // Build debug APK
+                bat './gradlew assembleDebug'
+            }
+            post {
+                success {
+                    // Archive the APK
+                    archiveArtifacts '**/build/outputs/apk/debug/*.apk'
                 }
             }
         }
 
-        stage('Test') {
+        stage('Build Release APK') {
             steps {
-                script {
-                    echo 'Running tests...'
-                    sh './gradlew testDebugUnitTest'
-                }
+                // Build release APK
+                bat './gradlew assembleRelease'
             }
-        }
-
-        stage('Archive') {
-            steps {
-                script {
-                    echo 'Archiving APK...'
-                    archiveArtifacts artifacts: '**/build/outputs/apk/debug/*.apk', fingerprint: true
-                }
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                script {
-                    echo 'Deploying APK to device/emulator...'
-                    sh 'adb install -r app/build/outputs/apk/debug/app-debug.apk'
+            post {
+                success {
+                    // Archive the release APK
+                    archiveArtifacts '**/build/outputs/apk/release/*.apk'
                 }
             }
         }
     }
 
     post {
+        always {
+            // Clean workspace after build
+            cleanWs()
+        }
         success {
-            echo 'Build and deployment successful!'
+            echo 'Build completed successfully!'
         }
         failure {
-            echo 'Build failed. Please check the logs.'
+            echo 'Build failed!'
         }
     }
 }
