@@ -30,9 +30,9 @@ pipeline {
         }
         stage('Login to Docker Hub') {
             steps {
-                script {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
                     echo 'Logging in to Docker Hub...'
-                    bat 'docker login -u %DOCKERHUB_CREDENTIALS_USR% -p %DOCKERHUB_CREDENTIALS_PSW%'  
+                    bat "docker login -u ${DOCKERHUB_USERNAME} -p ${DOCKERHUB_PASSWORD}"
                 }
             }
         }
@@ -40,16 +40,18 @@ pipeline {
             steps {
                 script {
                     echo 'Pushing Docker image to Docker Hub...'
-                    bat 'docker push sabiladitia/shopping-apps:latest'  
+                    bat 'docker push sabiladitia/shopping-apps:latest'  // Sesuaikan nama image
                 }
             }
         }
     }
     post {
         always {
-            script {
-                echo 'Logging out from Docker Hub...'
-                bat 'docker logout'
+            node {
+                script {
+                    echo 'Logging out from Docker Hub...'
+                    bat 'docker logout'
+                }
             }
         }
     }
