@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     environment {
-        // Java configuration
-        JAVA_HOME = 'C:\Program Files\Common Files\Oracle\Java\javapath\java.exe'  // Update this path to your JDK installation
+        // Java configuration - using double backslashes for Windows paths
+        JAVA_HOME = 'C:\\Program Files\\Java\\jdk-17'
         // Android SDK configuration
         ANDROID_HOME = 'C:\\Users\\Sabil Aditia\\AppData\\Local\\Android\\Sdk'
         // Update PATH to include Java and Android tools
